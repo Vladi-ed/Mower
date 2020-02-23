@@ -20,7 +20,7 @@ module.exports = function Mower(initArr, rangeArr) {
             case 2: {x1 = x; 	  y1 = y - 1; 	break;}
             case 3: {x1 = x - 1;  y1 = y; 		break;}
         }
-        if (x1 >= 0 && x1 <= rangeArr[0] && y1 >= 0 && y1 <= rangeArr[1]) {
+        if (x1 >= 0 && x1 <= +rangeArr[0] && y1 >= 0 && y1 <= +rangeArr[1]) {
             x = x1;
             y = y1;
         }
@@ -34,7 +34,7 @@ module.exports = function Mower(initArr, rangeArr) {
         }
     }
 
-    this.go = function (batch) {
+    this.runForestRun = function (batch) {
         if (!batch) return;
         [...batch].forEach((item) => move(item));
     };
