@@ -1,81 +1,42 @@
-/*eslint quotes: ["error", "single"]*/
-/*eslint-env es6*/
-const DIRECTIONS = ['N', 'E', 'S', 'W'];
+module.exports = function Mower(initArr, rangeArr) {
 
-module.exports = class Mower {
+    const directions = 'NESW';
 
-    constructor(coordinates, area) {
-        this.x = parseInt(coordinates[0], 10);
-        this.y = parseInt(coordinates[1], 10);
-        this.orientation = coordinates[2];
-        this.width = area[0];
-        this.height = area[1];
-    }
+    let x = +initArr[0];
+    let y = +initArr[1];
+    let direction = directions.indexOf(initArr[2].toUpperCase());
 
-    get position() {
-        return `${this.x} ${this.y} ${this.orientation}`;
-    }
+    function turnRight() { direction = (direction === 3 ? 0 : direction + 1); }
+    function turnLeft()  { direction = (direction === 0 ? 3 : direction - 1); }
 
-    turn(where) {
-        // console.log('- turn', where);
-        const index = DIRECTIONS.indexOf(this.orientation);
-        if (where === 'left')  this.orientation = (index > 0 ? DIRECTIONS[index - 1] : DIRECTIONS[DIRECTIONS.length - 1]);
-        if (where === 'right') this.orientation = (index === DIRECTIONS.length - 1 ? DIRECTIONS[0] : DIRECTIONS[index + 1]);
-    }
-
-
-
-    moveForward() {
-        switch (this.orientation) {
-            case 'N':
-                if (this._check(this.x, this.y + 1)) {
-                    this.y++;
-                    // console.log('go up');
-                }
-                break;
-            case 'E':
-                if (this._check(this.x + 1, this.y)) {
-                    this.x++;
-                    // console.log('go =>');
-                }
-
-                break;
-            case 'S':
-                if (this._check(this.x, this.y - 1)) {
-                    this.y--;
-                    // console.log('go down');
-                }
-                break;
-            case 'W':
-                if (this._check(this.x - 1, this.y)) {
-                    this.x--;
-                    // console.log('go <=');
-                }
-                break;
+    function step() {
+        let x1, y1;
+        switch(direction){
+            case 0: {x1 = x; 	  y1 = y + 1; 	break;}
+            case 1: {x1 = x + 1;  y1 = y; 		break;}
+            case 2: {x1 = x; 	  y1 = y - 1; 	break;}
+            case 3: {x1 = x - 1;  y1 = y; 		break;}
+        }
+        if (x1 >= 0 && x1 <= +rangeArr[0] && y1 >= 0 && y1 <= +rangeArr[1]) {
+            x = x1;
+            y = y1;
         }
     }
 
-
-    _check(x, y) {
-        // console.log(x, y)
-        return x >= 0 && x <= this.width && y >= 0 && y <= this.height;
-    }
-
-    go(commands) {
-        for (const c of commands.toUpperCase()) {
-            switch(c) {
-                case 'L':
-                    this.turn('left');
-                    break;
-                case 'R':
-                    this.turn('right');
-                    break;
-                case 'F':
-                    this.moveForward();
-                    break;
-                default:
-                    throw new Error('Wrong symbol: ' + c);
-            }
+    function move(command) {
+        switch(command.toUpperCase()) {
+            case 'R': { turnRight(); break; }
+            case 'L': { turnLeft();  break; }
+            case 'F': { step(); 	 break; }
         }
     }
+
+    this.runForestRun = function (batch) {
+        if (!batch) return;
+        [...batch].forEach((item) => move(item));
+    };
+
+    this.getState = function() {
+        return x + ' ' + y + ' ' + directions.charAt(direction);
+    };
 };
