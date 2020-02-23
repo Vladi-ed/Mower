@@ -1,9 +1,6 @@
 module.exports = function Mower(initArr, rangeArr) {
 
-    let directions = "NESW";
-
-    // const initArr = init//.split(" ");
-    // const rangeArr = range//.split(" ");
+    const directions = "NESW";
 
     let x = +initArr[0];
     let y = +initArr[1];
