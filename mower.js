@@ -13,7 +13,7 @@ module.exports = class Mower {
     }
 
     get position() {
-        return `${this.x} ${this.y} ${this.orientation}`
+        return `${this.x} ${this.y} ${this.orientation}`;
     }
 
     turn(where) {
