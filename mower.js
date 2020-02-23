@@ -3,8 +3,8 @@ const DIRECTIONS = ['N', 'E', 'S', 'W'];
 module.exports = class Mower {
 
     constructor(coordinates, area) {
-        this.x = parseInt(coordinates[0]);
-        this.y = parseInt(coordinates[1]);
+        this.x = parseInt(coordinates[0], 10);
+        this.y = parseInt(coordinates[1], 10);
         this.orientation = coordinates[2];
         this.width = area[0];
         this.height = area[1];

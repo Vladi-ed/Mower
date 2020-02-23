@@ -1,7 +1,10 @@
+/*eslint quotes: ["error", "single"]*/
+/*eslint-env es6*/
+
 let inputFilePath = 'input.txt';
 if (process.argv[2]) {
     inputFilePath = process.argv[2];
-    console.log('Used filename provided as argument:', inputFilePath)
+    console.log('Used filename provided as argument:', inputFilePath);
 }
 
 // const inputData = require('fs').readFileSync(inputFilePath, 'utf-8').split(/\r?\n/);
@@ -63,7 +66,7 @@ lineReader.on('line', (line) => {
     if (lineCounter === 1)
     {
         // get Area size
-        area = line.trim().split(' ').map(c => parseInt(c));
+        area = line.trim().split(' ').map((c) => parseInt(c, 10));
 
         // error check
         if (area.length !== 2) throw 'Wrong area dimension: ' + area.toString();
