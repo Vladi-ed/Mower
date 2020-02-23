@@ -2,7 +2,6 @@
 /*eslint-env es6*/
 /*eslint no-console: ["error", { allow: ["log","info", "error"] }] */
 
-
 let inputFilePath = 'input.txt';
 if (process.argv[2]) {
     inputFilePath = process.argv[2];
@@ -20,30 +19,11 @@ if (process.argv[2]) {
 //         console.log(line.split(' '));
 // });
 
-// -------------------
-
-// const readline = require('readline');
-// const fs = require('fs');
-// const readInterface = readline.createInterface({
-//     input: fs.createReadStream(inputFilePath),
-//     output: process.stdout,
-//     console: false
-// });
-//
-// readInterface.on('line', function(line) {
-//     console.log(line);
-// });
-//
-// readInterface.on('close', function() {
-//     console.log(' - Reader was closed');
-// });
-
-// ---------------
 
 // const { once } = require('events');
 const { createReadStream } = require('fs');
 const { createInterface } = require('readline');
-const Mower = require('./Mower.js');
+const Mower = require('./Mower2.js');
 
 //  require('fs').open(inputFilePath, (err) => {
 //     if (err) {
@@ -71,7 +51,7 @@ lineReader.on('line', (line) => {
         area = line.trim().split(' ').map((c) => parseInt(c, 10));
 
         // error check
-        if (area.length !== 2) throw 'Wrong area dimension: ' + area.toString();
+        if (area.length !== 2) throw new Error('Wrong area dimension: ' + area.toString());
         if (area[0] < 1 || area[1] < 1) throw new Error('Wrong area size: sides cannot be < 1');
     }
     else if (lineCounter % 2 === 0)
@@ -83,15 +63,14 @@ lineReader.on('line', (line) => {
         if (!line) console.error('Line', lineCounter, 'is empty! No initial position and orientation of the mower.');
         if (mowerConfig.length !== 3)
             throw new Error('Wrong mower config on line ' + lineCounter + ' of ' + inputFilePath);
-        // mowerPath = null;
     }
     else
     {
         // get current Mower path
         const autoMower = new Mower(mowerConfig, area);
         autoMower.go(line);
-        console.log(autoMower.position);
-
+        // console.log(autoMower.position);
+        console.log(autoMower.getState());
         // console.log('Current mower', mowerConfig, 'path:', line);
     }
     lineCounter++;
