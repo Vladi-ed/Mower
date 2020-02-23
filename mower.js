@@ -1,3 +1,5 @@
+/*eslint quotes: ["error", "single"]*/
+/*eslint-env es6*/
 const DIRECTIONS = ['N', 'E', 'S', 'W'];
 
 module.exports = class Mower {

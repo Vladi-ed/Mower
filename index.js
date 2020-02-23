@@ -1,10 +1,12 @@
 /*eslint quotes: ["error", "single"]*/
 /*eslint-env es6*/
+/*eslint no-console: ["error", { allow: ["log","info", "error"] }] */
+
 
 let inputFilePath = 'input.txt';
 if (process.argv[2]) {
     inputFilePath = process.argv[2];
-    console.log('Used filename provided as argument:', inputFilePath);
+    console.info('Used filename provided as argument:', inputFilePath);
 }
 
 // const inputData = require('fs').readFileSync(inputFilePath, 'utf-8').split(/\r?\n/);

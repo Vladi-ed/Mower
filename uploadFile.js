@@ -1,3 +1,7 @@
+/*eslint quotes: ["error", "single"]*/
+/*eslint-env es6*/
+/*eslint no-console: ["error", { allow: ["log", "error"] }] */
+
 const http = require('http');
 const formidable = require('formidable');
 const fs = require('fs');
@@ -23,8 +27,3 @@ http.createServer(function (req, res) {
         return res.end();
     }
 }).listen(8080);
-
-
-
-
-
